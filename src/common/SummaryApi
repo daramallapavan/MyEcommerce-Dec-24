@@ -1,0 +1,49 @@
+export const baseUrl="http://localhost:9890";
+
+const SummaryApi={
+    register:{
+        url: '/user/sendOtp',
+        method: 'post'
+
+    },
+    login: {
+        url: '/user/login',
+        method: 'post'
+    },
+    createProduct: {
+        url: '/product/add',
+        method: 'post'
+    },
+    uploadImage:{
+        url: '/image/uploadSingle',
+        method: 'post'
+    },
+
+    getAllProducts:{
+        url: '/product/products',
+        method: 'get'
+    },
+    addToCartNew:{
+        url: '/newCart/addToCart',
+        method: 'post'
+    },
+    getCartItems: {
+        url: '/newCart/getCart',
+        method: 'get'
+    },
+    addDeliveryAddress: {
+        url: '/delivery/add',
+        method: 'post'
+    },
+    addOrder: {
+        url: '/order/add',
+        method: 'post'
+    }
+  
+ 
+    
+
+}
+
+export default SummaryApi
+
