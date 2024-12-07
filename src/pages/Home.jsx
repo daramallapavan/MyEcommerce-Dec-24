@@ -1,10 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import Axios from '../utils/Axios'
-import axios from 'axios'
+import React, {  useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { setProductList } from '../store/productSlice'
-import getProductList from '../utils/getProductList'
+
 
 
 
@@ -86,12 +82,7 @@ const Home = () => {
   )
 
 
-const getDataFromDatabase=async()=>{
 
-  const response=await getProductList()
-
-  setProductList(response)
-}
 
  
 
