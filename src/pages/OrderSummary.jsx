@@ -3,34 +3,38 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import {IoDocumentText} from 'react-icons/io5'
 import PriceDetails from './PriceDetails';
 import axios from 'axios';
-
+import { useSelector } from 'react-redux';
 
 const OrderSummary = () => {
 
+  const data=useSelector((state)=>state?.placeOrder?.selectedCartItems)
 
+  console.log("cartItemsListOrder",data)
+
+
+  //const deliveryData=useSelector((state)=>state?.deliveryAddress?.data)
+
+  //console.log("deliveryData....",deliveryData)
 
   const [deliveryAddress,setDeliveryAddress]=useState([])
 
-  const location=useLocation()
+  //const location=useLocation()
 
-  const data= location.state?.data;
+  //const data= location.state?.data;
 
   const selectedItems=data.items
 
   const itemprice=data.price
-
   
   const itemquantity=data.quantity
 
   const platformfee=data.platformfee
 
-  
   const deliveryfee=data.deliveryfee
 
   const totalAmount=data.totalAmount
 
   const delivery=deliveryAddress[deliveryAddress.length-1]
-
 
     const getDeliveryAddress=()=>{
   
@@ -51,8 +55,6 @@ const OrderSummary = () => {
       
 
     },[])
-
-
 
     const navigate=useNavigate()
 

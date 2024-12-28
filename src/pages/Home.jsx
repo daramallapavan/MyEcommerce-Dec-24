@@ -1,8 +1,7 @@
 import React, {  useState } from 'react'
+import {  useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-
-
-
+import { increment,decrement } from '../redux/counterSlice'
 
 
 
@@ -82,6 +81,12 @@ const Home = () => {
   )
 
 
+  const count=useSelector((state)=>state.counter)
+
+
+  const dispatch=useDispatch()
+
+
 
 
  
@@ -104,8 +109,17 @@ const Home = () => {
     <div className='container mx-auto my-5'>
       <p>Product Section</p>
 
+{/* <div className='grid gap-4'>
+  <p>Counter is: {count}</p>
 
-      <div className='grid grid-cols-2  sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 px-2 my-2'>
+  <button
+  onClick={()=>dispatch(increment())} 
+  
+  >Increment</button>
+  <button  onClick={()=>dispatch(decrement())}>Decrement</button>
+</div> */}
+
+       <div className='grid grid-cols-2  sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 px-2 my-2'>
 
         {
           productList.map((product,index)=>{
@@ -149,7 +163,7 @@ const Home = () => {
    
    
 
-    </div> 
+      </div>  
     
 
     </div>

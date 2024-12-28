@@ -3,16 +3,14 @@ import Search from './Search'
 import { Link, useNavigate } from 'react-router-dom'
 import { GoTriangleDown, GoTriangleUp  } from "react-icons/go";
 import { FaUser } from "react-icons/fa";
+import { useSelector } from 'react-redux';
 
-import {useSelector} from 'react-redux'
 const Header = () => {
 
   const [openUserMenu,setOpenUserMenu] = useState(false)
   const navigate=useNavigate()
 
-  const user= useSelector((state)=> state?.user)
 
-  console.log("user from header store",user)
 
   const logOut=()=>{
     localStorage.clear()
@@ -30,8 +28,7 @@ const Header = () => {
             <div className='flex gap-2'>
             <Link to={'/'} className='font-semibold outline-none'>Home</Link>
             <Link to={'/cart'}>Cart</Link>
-            <Link to={'/orders'}>Order</Link>
-    
+       
           
     
             </div>
@@ -41,7 +38,7 @@ const Header = () => {
 
             </div>
 
-            <div className='  items-center gap-10'>
+            {/* <div className='  items-center gap-10'>
                                         {
                                             user?.id ? (
                                                 <div className='relative'>
@@ -95,6 +92,19 @@ const Header = () => {
                                             )
                                         }
 
+             </div> */}
+
+
+             <div>
+             <div className='flex gap-1 items-center justify-center'>
+                                                 <Link to={'/login'} className='text-lg px-2'>Login</Link>
+                                                 <Link to={'/'} className='text-lg'>
+                                                       <FaUser/>
+                                                        </Link>
+                                            
+                                              
+                                                </div>
+                                                
              </div>
            
         </div>

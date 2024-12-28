@@ -1,11 +1,14 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 const SelectAddress = () => {
 
    
     const navigate=useNavigate()
+
+    const dispatch=useDispatch()
 
     const location=useLocation()
 
@@ -50,6 +53,10 @@ const SelectAddress = () => {
     const openOrderSummary=(id)=>{
 
         console.log(id)
+
+        
+
+        navigate('/orderSummary')
 
 
         // navigate('/orderSummary',{

@@ -1,17 +1,27 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import PriceDetails from './PriceDetails'
-import DeliveryAddress from './DeliveryAddress'
 import Axios from '../utils/Axios'
 import SummaryApi from '../common/SummaryApi'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 import DeleteCategoryModel from '../components/DeleteCategoryModel'
-import fetchDeliveryAddresses from '../utils/fetchDeliveryAddress'
+import { clickPlaceOrder } from '../redux/placeOrder'
 
 const Cart = () => {
+ // const cartStore=useSelector((state)=>state?.cartItem?.cart)
 
+  //  const [pList,...remaingProducts]=cartStore;
+
+  //  const combinedArray=[...pList,...remaingProducts];
+  
+  //  console.log("single array",combinedArray)
+
+  // console.log(" store",cartStore)
+
+
+   const dispatch=useDispatch()
   const [isMobile,setIsMobile]=useState(false)
 
   const [address,setAddress]=useState({
@@ -105,8 +115,8 @@ const getCartItems=async()=>{
 const count=cartList.filter((item)=>item.selected).length
 
 useEffect(()=>{
-  getCartItems()
-    },[])
+   getCartItems()
+     },[])
 
     
     const totalPrice=cartList.reduce((sum,product)=>{return sum+ product.price*product.quantity},0);
@@ -127,6 +137,9 @@ useEffect(()=>{
     const deliveryfee=selectedTotalPrice>500? 0:40
 
     const totalAmount=deliveryfee+selectedTotalPrice+platformfee
+
+   
+  
 
 const placeOrder=()=>{
  
@@ -170,13 +183,16 @@ const placeOrder=()=>{
         // )  
 
 
+        dispatch(clickPlaceOrder(data))
+        
 
+        navigate('/orderSummary')
 
-        navigate('/orderSummary',{
-          state: {
-            data: data
-          }
-        })
+        // navigate('/orderSummary',{
+        //   state: {
+        //     data: data
+        //   }
+        // })
         return
       } 
    
@@ -206,13 +222,6 @@ const deleteCartItem=async(id)=>{
 
 }
 
-
-
-
-
-
-
-
 const [opendeleteItemModel,setOpenDeleteItemModel]=useState(false)
 
 
@@ -225,7 +234,11 @@ const deleteCart=(id)=>{
 }
 
   return (
-    <section className=' my-10 lg:px-4 px-2  '>
+    <div>
+   
+   {
+    cartList.length>0 ? (
+      <div className=' my-10 lg:px-4 px-2  '>
       <div className='grid lg:grid-cols-[70%,30%] gap-1'>
 
         <div className='grid gap-2'>
@@ -485,7 +498,17 @@ const deleteCart=(id)=>{
       }
    
 
-    </section>
+      </div>
+    ):(<p>Empty Cart</p>)
+   }
+        
+        
+     
+      
+  
+
+    </div>
+
 
   )
 }

@@ -2,23 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ManyMoreQuantity from '../components/ManyMoreQuantity';
-import { setStoreCartData } from '../store/cartSlice';
-
-import { FaCartArrowDown } from "react-icons/fa";
+import { addToCart } from '../redux/CartSlice';
 import toast from 'react-hot-toast';
+import SummaryApi from '../common/SummaryApi'
 import Axios from '../utils/Axios';
-import SummaryApi from '../common/SummaryApi';
-
 const ProductView = () => {
 
 
-  
 
-
-  const cartDauserCart=useSelector((state)=>state.cart)
-  const dispatch=useDispatch()
-
-  const [quantity,setQuantity]=useState(1)
+const [quantity,setQuantity]=useState(1)
 
 const location=useLocation()
 
@@ -26,23 +18,21 @@ const navigate=useNavigate()
 
 const product=location.state;
 
+const [mainImage,setMainImage]=useState(`${product.images[0]}`);
 
 
-  const [mainImage,setMainImage]=useState(`${product.images[0]}`);
+const [openManyQuantityPopUp,setOpenManyQuantityPopUp]=useState(false)
 
 
-  const [openManyQuantityPopUp,setOpenManyQuantityPopUp]=useState(false)
-
-
-  const onOptionChanges=()=>{
+const onOptionChanges=()=>{
 
     setOpenManyQuantityPopUp(true)
 
   }
 
-  const [isMobile,setIsMobile]=useState(false)
+const [isMobile,setIsMobile]=useState(false)
 
-  useEffect(()=>{
+useEffect(()=>{
 
     const handleResize=()=>{
       setIsMobile(window.innerWidth<=768);
@@ -64,6 +54,9 @@ return ()=>{
     setQuantity(Number(e.target.value))
   }
 
+  const dispatch=useDispatch()
+
+
   const addTOCart=()=>{
 
     const changeproduct={
@@ -74,27 +67,20 @@ return ()=>{
       imageUrl: product.images[0]
     }
 
+  //  dispatch(addToCart(changeproduct))
+  //  toast.success('Item Added in Cart')
     try {
-
-      const response=Axios({
+        Axios({
+        
         ...SummaryApi.addToCartNew,
         data: changeproduct
-      })
-
-      toast.success('Item Added in Cart')
-      
+      }).then((res)=>{
+        dispatch(addToCart(changeproduct))
+    toast.success('Item Added in Cart')
+      })  
     } catch (error) {
       console.log("error",error)
     }
-
-    navigate('/cart')
-
- 
-  
-
-    
-
- 
  
   }
 

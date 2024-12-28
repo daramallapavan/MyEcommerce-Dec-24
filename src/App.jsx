@@ -2,60 +2,36 @@
 import { Outlet } from 'react-router-dom'
 import './App.css'
 import Header from './components/Header'
-import Footer from './components/Footer'
 import toast, {Toaster} from 'react-hot-toast'
-import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
-import getProductList from './utils/getProductList'
-import { setProductList } from './store/productSlice'
 import fetchCartData from './utils/FetchCartData'
-import { setStoreCartData } from './store/cartSlice'
-import fetchUserDetails from './utils/FetchUserDetails'
-import { setUserDetails } from './store/userSlice'
+import { useDispatch } from 'react-redux'
+import { addToCart } from './redux/CartSlice'
+
 function App() {
 
-
-  const dispatch=useDispatch();
+  const dispatch=useDispatch()
 
   const getCartData = async()=>{
-    const cart = await fetchCartData()
-    dispatch(setStoreCartData(cart))
-}
+     const cart=await fetchCartData();
 
+     if(cart.length!==0){
+      dispatch(addToCart(cart))
+      console.log("databasecart",cart)
+     }
 
-const getUserDetails = async()=>{
-  const user = await fetchUserDetails()
-  dispatch(setUserDetails(user?.data))
+ 
+
+    
 }
 
 useEffect(()=>{
-
-  getCartData()
-
-  getUserDetails()
-},[])
+   getCartData()
+ },[])
 
 
 
-// const productSlice=useSelector((state)=>state?.product)
 
-// const getProducts=async()=>{
-//   const productData=await getProductList()
-
-//   dispatch(setProductList(productData?.data))
-
-//   console.log("response",productData?.data)
-
-
-//   console.log("product store",productSlice)
-
-  
-// }
-
-
-// useEffect(()=>{
-// getProducts()
-// },[])
 
   return (
    <>

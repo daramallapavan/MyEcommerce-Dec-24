@@ -4,6 +4,8 @@ import toast from 'react-hot-toast'
 import Axios from '../utils/Axios'
 import SummaryApi from '../common/SummaryApi'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { deliveryAddressStore } from '../redux/deliverySlice'
 
 const DeliveryAddress = () => {
 
@@ -15,9 +17,10 @@ const DeliveryAddress = () => {
 
   const location=useLocation()
 
-  const name=location.state.name
+ // const name=location.state.name
+ const name ='/selectAddress'
 
-
+  const dispatch=useDispatch()
 
   
   const [typeSelect,setTypeSelect]=useState("")
@@ -58,7 +61,7 @@ const DeliveryAddress = () => {
         data: data
       }).then((res)=>{
         console.log("response",res?.data)
-  
+
         setData(
           {
             fullname: "",
@@ -72,11 +75,12 @@ const DeliveryAddress = () => {
             type: ""
           }
         )
-        navigate('/selectAddress',
-          {
-            state: res?.data
-          }
-        )
+        // navigate('/selectAddress',
+        //   {
+        //     state: res?.data
+        //   }
+        // )
+        navigate('/orderSummary')
       }).catch((error)=>{
         console.log("error",error)
       })
